@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">ConnectApp</string>
+    <string-array name="forum_array">
+        <item>Voz</item>
+        <item>Facebook</item>
+        <item>Reddit</item>
+        <item>Linked</item>
+    </string-array>
+</resources>
