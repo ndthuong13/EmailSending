@@ -3,6 +3,7 @@ package com.example.connectapp;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,6 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 
@@ -136,10 +139,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void handleSave() {
-        String filename = "filedangki.txt";
-        FileOutputStream outputStream;
+        // Đường dẫn ở đây là Documents nhé
+//                Environment.DIRECTORY_DOWNLOADS: Thư mục "Download".
+//                Environment.DIRECTORY_DOCUMENTS: Thư mục "Documents".
+//                Environment.DIRECTORY_PICTURES: Thư mục "Pictures".
+//                Environment.DIRECTORY_MUSIC: Thư mục "Music".
+//                Environment.DIRECTORY_MOVIES: Thư mục "Movies".
+        File directory = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS), "MyAppFolder"); //MyAppFoler là thư mục con
+
+//        String filename = "filedangki.txt";
+//        FileOutputStream outputStream;
+
+        if(!directory.exists()){//Cái này để tạo đường dẫn, giả sử cái MyAppFoler kia chưa được tạo ra
+            directory.mkdir();
+        }
+
+        File file = new File(directory, "filedangki.txt");
         try {
-            outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+//            outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+            FileOutputStream outputStream = new FileOutputStream(file, true);
             for (String registration : registrations) {
                 outputStream.write((registration + "\n").getBytes());
             }
